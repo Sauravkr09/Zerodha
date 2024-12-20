@@ -14,10 +14,13 @@ const Login = () => {
 
   // Generate random Captcha
   function generateCaptcha() {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
     for (let i = 0; i < 6; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     return result;
   }
@@ -43,7 +46,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        "https://zerodha-pq9f.onrender.com/login",
+        "http://localhost:8080/login",
         {
           ...inputValue,
         },
@@ -53,7 +56,8 @@ const Login = () => {
       if (success) {
         setSuccessMessage(message);
         setTimeout(() => {
-          window.location.href = "https://dashboard.d3bnl1cz0kxf11.amplifyapp.com";
+          window.location.href =
+            "https://dashboard.d3bnl1cz0kxf11.amplifyapp.com";
         }, 1000);
       } else {
         alert(message);

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
 import axios from "axios";
 
 function SignUp() {
@@ -13,6 +13,7 @@ function SignUp() {
   const [captchaInput, setCaptchaInput] = useState("");
   const [captchaError, setCaptchaError] = useState("");
 
+  const navigate = useNavigate(); // Initialize useNavigate
   const { email, password, username } = inputValue;
 
   useEffect(() => {
@@ -44,15 +45,14 @@ function SignUp() {
 
     try {
       const { data } = await axios.post(
-        "https://zerodha-pq9f.onrender.com/signup",
+        "http://localhost:8080/signup",
         { ...inputValue },
         { withCredentials: true }
       );
       const { success, message } = data;
       if (success) {
-        setTimeout(() => {
-          window.location.href = "https://dashboard.d3bnl1cz0kxf11.amplifyapp.com";
-        }, 1000);
+        alert("Account created successfully");
+        navigate("/login"); // Redirect to the login page
       } else {
         alert(message);
       }
@@ -200,7 +200,8 @@ function SignUp() {
             {/* CAPTCHA Section */}
             <div className="captcha-section">
               <label>
-                Solve the CAPTCHA: {captchaQuestion.num1} + {captchaQuestion.num2} = ?
+                Solve the CAPTCHA: {captchaQuestion.num1} +{" "}
+                {captchaQuestion.num2} = ?
               </label>
               <input
                 type="number"
@@ -209,7 +210,9 @@ function SignUp() {
                 onChange={(e) => setCaptchaInput(e.target.value)}
                 required
               />
-              {captchaError && <div className="captcha-error">{captchaError}</div>}
+              {captchaError && (
+                <div className="captcha-error">{captchaError}</div>
+              )}
             </div>
 
             <button type="submit">Submit</button>
