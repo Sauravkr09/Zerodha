@@ -45,7 +45,7 @@ function SignUp() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/signup",
+        "https://zerodha-xi.vercel.app/signup",
         { ...inputValue },
         { withCredentials: true }
       );

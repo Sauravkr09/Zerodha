@@ -46,7 +46,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/login",
+        "https://zerodha-xi.vercel.app/login",
         {
           ...inputValue,
         },
